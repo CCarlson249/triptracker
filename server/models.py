@@ -54,6 +54,8 @@ class Trip(db.Model, SerializerMixin):
 
     events = db.relationship('Event', backref='trip')
 
+    locations = db.relationship('Location', secondary='trip_locations', backref=db.backref('trips', lazy='dynamic'))
+
 
 class Event(db.Model, SerializerMixin):
     __tablename__ = 'events'

@@ -112,9 +112,34 @@ def get_trip(id):
 @app.route('/trips', methods=['POST'])
 def create_trip():
     data = request.get_json()
-    trip = Trip(**data)
+    trip = Trip(
+        name=data['name'],
+        start=data['start'],
+        end=data['end'],
+        depart_day=data['depart_day'],
+        depart_time=data['depart_time'],
+        arrive_day=data['arrive_day'],
+        arrive_time=data['arrive_time'],
+        flight_number=data['flight_number']
+    )
     db.session.add(trip)
     db.session.commit()
+
+    # Query locations with matching airports
+    start_location = Location.query.filter_by(airports=trip.start).first()
+    end_location = Location.query.filter_by(airports=trip.end).first()
+
+    # Associate locations with trip
+    if start_location and end_location:
+        trip.locations.append(start_location)
+        trip.locations.append(end_location)
+        db.session.commit()
+
+        # Create new association table row
+        db.session.execute(trip_locations.insert().values(trip_id=trip.id, location_id=start_location.id))
+        db.session.execute(trip_locations.insert().values(trip_id=trip.id, location_id=end_location.id))
+        db.session.commit()
+
     return jsonify(trip.to_dict()), 201
 
 # update trip by id
@@ -134,6 +159,57 @@ def delete_trip(id):
     db.session.delete(trip)
     db.session.commit()
     return '', 204
+# General GET request for all events
+@app.route('/events')
+def get_events():
+    events = Event.query.all()
+    return jsonify([event.to_dict() for event in events])
+
+# GET request for a specific event by ID
+@app.route('/events/<int:event_id>')
+def get_event(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        return jsonify(event.to_dict())
+    else:
+        return jsonify({'message': 'Event not found'}), 404
+
+# POST request to create a new event
+@app.route('/events', methods=['POST'])
+def create_event():
+    data = request.get_json()
+    event = Event(**data)
+    db.session.add(event)
+    db.session.commit()
+    return jsonify(event.to_dict()), 201
+
+# PATCH request to update an existing event by ID
+@app.route('/events/<int:event_id>', methods=['PATCH'])
+def update_event(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        data = request.get_json()
+        for key, value in data.items():
+            setattr(event, key, value)
+        db.session.commit()
+        return jsonify(event.to_dict())
+    else:
+        return jsonify({'message': 'Event not found'}), 404
+
+# DELETE request to delete an existing event by ID
+@app.route('/events/<int:event_id>', methods=['DELETE'])
+def delete_event(event_id):
+    event = Event.query.get(event_id)
+    if event:
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify({'message': 'Event deleted'})
+    else:
+        return jsonify({'message': 'Event not found'}), 404
+@app.route('/locations')
+def get_locations():
+    locations = Location.query.all()
+    return jsonify([location.to_dict() for location in locations])
 
 
 

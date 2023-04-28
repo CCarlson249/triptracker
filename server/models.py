@@ -43,10 +43,12 @@ class Trip(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    start = db.Column(db.String)
+    end = db.Column(db.String)
     depart_day = db.Column(db.Date, nullable=False)
     depart_time = db.Column(db.Time, nullable=False)
     arrive_day = db.Column(db.Date, nullable=False)
-    arrive_time = time = db.Column(db.Time, nullable=False)
+    arrive_time = db.Column(db.Time, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     flight_number = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -78,7 +80,7 @@ class Location(db.Model, SerializerMixin):
     serialize_rules = ('-created_at', '-updated_at')
                        
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    airports = db.Column(db.String(100))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     created_at = db.Column(db.DateTime, server_default=db.func.now())

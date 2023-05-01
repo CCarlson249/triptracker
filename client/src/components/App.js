@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Homepage from "./Homepage";
 import Addnewtrip from './Addnewtrip';
 import Calendar from './Calendar';
+import EditProfile from "./EditProfile";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -47,7 +48,7 @@ function App() {
             </Route>
             <Route path= '/Addnewtrip'>
               <div>
-                <Addnewtrip  />
+                <Addnewtrip  user={user}/>
               </div>
             </Route>
             <Route path='/Calendar'>
@@ -56,7 +57,14 @@ function App() {
               </div>
             </Route>
             <Route path='/profile'>
-              <Profile />
+              <div>
+              <Profile user = {user} handleLogout={handleLogout}/>
+              </div>
+            </Route>
+            <Route path ="/edit_profile">
+              <div>
+              <EditProfile user={user} handleLogout={handleLogout} />
+              </div>
             </Route>
           </Switch>
         </div>

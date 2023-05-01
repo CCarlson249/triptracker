@@ -6,6 +6,7 @@
 from flask import request, session, make_response, jsonify
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from datetime import datetime
 
 # Local imports
 from config import *
@@ -116,12 +117,13 @@ def create_trip():
         name=data['name'],
         start=data['start'],
         end=data['end'],
-        depart_day=data['depart_day'],
-        depart_time=data['depart_time'],
-        arrive_day=data['arrive_day'],
-        arrive_time=data['arrive_time'],
-        flight_number=data['flight_number']
-    )
+        depart_day=datetime.strptime(data['depart_day'], '%Y-%m-%d').date(),
+        depart_time=datetime.strptime(data['depart_time'], '%H:%M').time(),
+        arrive_day=datetime.strptime(data['arrive_day'], '%Y-%m-%d').date(),
+        arrive_time=datetime.strptime(data['arrive_time'], '%H:%M').time(),
+        flight_number=data['flight_number'],
+        user_id=data['user_id']
+)
     db.session.add(trip)
     db.session.commit()
 
@@ -211,7 +213,14 @@ def get_locations():
     locations = Location.query.all()
     return jsonify([location.to_dict() for location in locations])
 
-
+@app.route('/users/delete/<int:id>', methods=['DELETE'])
+def user_delete(id):    
+    if request.method == 'DELETE':
+        user_to_delete_id = session['user_id']
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        return make_response({"Message": "Yeet!"},200)
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

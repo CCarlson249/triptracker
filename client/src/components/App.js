@@ -11,6 +11,7 @@ import EditProfile from "./EditProfile";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [trips, setTrips] = useState([]);
 
 
   useEffect(() => {
@@ -20,6 +21,17 @@ function App() {
           r.json().then((user) => setUser(user));
         }
       });
+  }, []);
+
+  useEffect(() => {
+    fetch('/trips')
+      .then(res => res.json())
+      .then(data => {
+        console.log('data:', data); // check the data returned from the server
+        setTrips(data);
+        console.log('trips:', trips); // check the value of the trips state variable after it's set
+      })
+      .catch(error => console.error(error));
   }, []);
 
   const handleLogout = () => {
@@ -43,7 +55,7 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <div className='row'>
-                <Homepage />
+                <Homepage trips={trips} />
               </div>
             </Route>
             <Route path= '/Addnewtrip'>

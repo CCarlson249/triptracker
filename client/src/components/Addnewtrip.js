@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import axios from 'axios';
+import { tripsAtom } from './atoms';
 
-function Addnewtrip({user}) {
+function Addnewtrip({ user }) {
   const [startAirport, setStartAirport] = useState('');
   const [endAirport, setEndAirport] = useState('');
   const [startAirportId, setStartAirportId] = useState(null);
@@ -13,6 +15,7 @@ function Addnewtrip({user}) {
   const [arriveTime, setArriveTime] = useState('');
   const [flightNumber, setFlightNumber] = useState('');
   const [airports, setAirports] = useState([]);
+  const [trips, setTrips] = useRecoilState(tripsAtom);
 
   // Fetch the list of airports from the backend on component mount
   useEffect(() => {
@@ -66,6 +69,7 @@ function Addnewtrip({user}) {
     axios.post('/trips', newTrip)
       .then(response => {
         console.log(response.data);
+        setTrips([...trips, response.data]); // Update the local state with the new trip
       })
       .catch(error => {
         console.log(error);

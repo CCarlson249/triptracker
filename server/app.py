@@ -101,7 +101,7 @@ api.add_resource(UserById, '/users/<int:id>')
 @app.route('/trips', methods=['GET'])
 def get_trips():
     trips = Trip.query.all()
-    return jsonify({'trips': [trip.to_dict() for trip in trips]})
+    return jsonify([trip.to_dict() for trip in trips])
 
 # get by id
 @app.route('/trips/<int:id>', methods=['GET'])

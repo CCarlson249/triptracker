@@ -8,10 +8,12 @@ import Homepage from "./Homepage";
 import Addnewtrip from './Addnewtrip';
 import Calendar from './Calendar';
 import EditProfile from "./EditProfile";
+import { tripsAtom } from "./atoms";
+import {useRecoilState} from 'recoil';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useRecoilState(tripsAtom)
 
 
   useEffect(() => {
@@ -27,9 +29,8 @@ function App() {
     fetch('/trips')
       .then(res => res.json())
       .then(data => {
-        console.log('data:', data); // check the data returned from the server
-        setTrips(data);
-        console.log('trips:', trips); // check the value of the trips state variable after it's set
+        console.log('data:', data);
+        setTrips(data); // set the data directly to the trips state
       })
       .catch(error => console.error(error));
   }, []);
@@ -55,7 +56,7 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <div className='row'>
-                <Homepage trips={trips} />
+                <Homepage  user={user}/>
               </div>
             </Route>
             <Route path= '/Addnewtrip'>

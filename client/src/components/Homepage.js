@@ -1,19 +1,28 @@
-import react from 'react';
-import {useState, useEffect} from 'react';
+
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 import TripCard from './TripCard';
+import { tripsAtom } from './atoms';
 
 
-function Homepage({ trips }) {
-    console.log(trips, "this is a string");
-    let tripsVar= []
-    if (trips.trips)
-    {tripsVar = trips.trips}
-    return (
-      <div>
-        <h1>Trips</h1>
-        {tripsVar.map(trip => <h1>Hello World</h1>)}
-      </div>
-    );
-  }
+
+
+function Homepage({user}) {
+
+
+  const trips = useRecoilValue(tripsAtom);
   
-  export default Homepage;
+
+  const userTrips = trips.filter(trip => trip.user_id === user.id);
+
+  return (
+    <div>
+      <h1>Trips</h1>
+      {userTrips.map(trip => (
+        <TripCard key={trip.id} trip={trip} />
+      ))}
+    </div>
+  );
+      }
+
+export default Homepage;

@@ -123,13 +123,13 @@ def create_trip():
         arrive_time=datetime.strptime(data['arrive_time'], '%H:%M').time(),
         flight_number=data['flight_number'],
         user_id=data['user_id']
-)
+    )
     db.session.add(trip)
     db.session.commit()
 
     # Query locations with matching airports
-    start_location = Location.query.filter_by(airports=trip.start).first()
-    end_location = Location.query.filter_by(airports=trip.end).first()
+    start_location = Location.query.filter_by(id=trip.start).first()
+    end_location = Location.query.filter_by(id=trip.end).first()
 
     # Associate locations with trip
     if start_location and end_location:
@@ -142,7 +142,18 @@ def create_trip():
         db.session.execute(trip_locations.insert().values(trip_id=trip.id, location_id=end_location.id))
         db.session.commit()
 
-    return jsonify(trip.to_dict()), 201
+        # Return trip object with airport names included
+        return jsonify({
+            'id': trip.id,
+            'name': trip.name,
+            'start': start_location.airports,
+            'end': end_location.airports,
+            'departure_date': trip.depart_day.strftime('%Y-%m-%d'),
+            'flight_number': trip.flight_number,
+            'user_id': trip.user_id
+        })
+
+    return jsonify({'message': 'Error: Start or end airport not found'}), 400
 
 # update trip by id
 @app.route('/trips/<int:id>', methods=['PATCH'])

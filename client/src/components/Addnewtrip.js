@@ -39,8 +39,9 @@ function Addnewtrip({ user }) {
     // Patch the new trip object to the backend
   axios.post('/trips', newTrip)
   .then(response => {
-    console.log(response.data);
+    console.log([...trips, response.data]);
     setTrips([...trips, response.data]);
+    
     
   })
   .catch(error => {

@@ -8,6 +8,7 @@ import Homepage from "./Homepage";
 import Addnewtrip from './Addnewtrip';
 import Calendar from './Calendar';
 import EditProfile from "./EditProfile";
+import TripPage from "./TripPage";
 import { tripsAtom } from "./atoms";
 import {useRecoilState} from 'recoil';
 
@@ -58,6 +59,11 @@ function App() {
               <div className='row'>
                 <Homepage  user={user}/>
               </div>
+            </Route>
+            <Route exact path='/trip/:id'>
+            <div className='row'>
+              <TripPage />
+            </div>
             </Route>
             <Route path= '/Addnewtrip'>
               <div>

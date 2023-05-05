@@ -56,7 +56,6 @@ class Trip(db.Model, SerializerMixin):
 
     events = db.relationship('Event', backref='trip')
 
-    locations = db.relationship('Location', secondary='trip_locations', backref=db.backref('trips', lazy='dynamic'))
 
 
 class Event(db.Model, SerializerMixin):
@@ -71,22 +70,8 @@ class Event(db.Model, SerializerMixin):
     time = db.Column(db.Time)
     description = db.Column(db.String)
     trip_id = db.Column(db.Integer, db.ForeignKey('trips.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-class Location(db.Model, SerializerMixin):
-    __tablename__ = 'locations'
 
-    serialize_rules = ('-created_at', '-updated_at')
-                       
-    id = db.Column(db.Integer, primary_key=True)
-    airports = db.Column(db.String(100))
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-
-trip_locations = db.Table('trip_locations',
-    db.Column('trip_id', db.Integer, db.ForeignKey('trips.id')),
-    db.Column('location_id', db.Integer, db.ForeignKey('locations.id'))
-)

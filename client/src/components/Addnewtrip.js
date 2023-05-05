@@ -6,47 +6,18 @@ import { tripsAtom } from './atoms';
 function Addnewtrip({ user }) {
   const [startAirport, setStartAirport] = useState('');
   const [endAirport, setEndAirport] = useState('');
-  const [startAirportId, setStartAirportId] = useState(null);
-  const [endAirportId, setEndAirportId] = useState(null);
   const [tripName, setTripName] = useState('');
   const [departDate, setDepartDate] = useState('');
   const [departTime, setDepartTime] = useState('');
   const [arriveDate, setArriveDate] = useState('');
   const [arriveTime, setArriveTime] = useState('');
   const [flightNumber, setFlightNumber] = useState('');
-  const [airports, setAirports] = useState([]);
+
   const [trips, setTrips] = useRecoilState(tripsAtom);
 
-  // Fetch the list of airports from the backend on component mount
-  useEffect(() => {
-    axios.get('/locations')
-      .then(response => {
-        setAirports(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
 
-  // Validate the start airport against the list of airports
-  useEffect(() => {
-    const airport = airports.find(a => a.airports === startAirport);
-    if (airport) {
-      setStartAirportId(airport.id);
-    } else {
-      setStartAirportId(null);
-    }
-  }, [startAirport, airports]);
 
-  // Validate the end airport against the list of airports
-  useEffect(() => {
-    const airport = airports.find(a => a.airports === endAirport);
-    if (airport) {
-      setEndAirportId(airport.id);
-    } else {
-      setEndAirportId(null);
-    }
-  }, [endAirport, airports]);
+
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -55,8 +26,8 @@ function Addnewtrip({ user }) {
     // Create a new trip object with the validated airport ids
     const newTrip = {
       name: tripName,
-      start: startAirportId,
-      end: endAirportId,
+      start: startAirport,
+      end: endAirport,
       depart_day: departDate,
       depart_time: departTime,
       arrive_day: arriveDate,
@@ -66,36 +37,29 @@ function Addnewtrip({ user }) {
     };
 
     // Patch the new trip object to the backend
-    axios.post('/trips', newTrip)
-      .then(response => {
-        console.log(response.data);
-        setTrips([...trips, response.data]); // Update the local state with the new trip
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  axios.post('/trips', newTrip)
+  .then(response => {
+    console.log(response.data);
+    setTrips([...trips, response.data]); // Update the local state with the new trip
+  })
+  .catch(error => {
+    console.log(error);
+  });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Start Airport:
-        <select value={startAirport} onChange={event => setStartAirport(event.target.value)}>
-          <option value="">Select an airport</option>
-          {airports.map(airport => (
-            <option key={airport.id} value={airport.airports}>{airport.airports}</option>
-          ))}
-        </select>
+        <input type='test' value={startAirport} onChange={event => setStartAirport(event.target.value)} />
       </label>
-      <label>
+      
+        
+        <label>
         End Airport:
-        <select value={endAirport} onChange={event => setEndAirport(event.target.value)}>
-          <option value="">Select an airport</option>
-          {airports.map(airport => (
-            <option key={airport.id} value={airport.airports}>{airport.airports}</option>
-          ))}
-        </select>
+        <input type="text" value={endAirport} onChange={event => setEndAirport(event.target.value)} />
       </label>
+      
       <label>
         Trip Name:
         <input type="text" value={tripName} onChange={event => setTripName(event.target.value)} />

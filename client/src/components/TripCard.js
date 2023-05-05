@@ -3,6 +3,8 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom'
 
 function TripCard({trip, user}){
+    console.log(trip.user_id)
+    console.log(trip.id)
     return (
         <div>
             <h2>{trip.name}</h2>

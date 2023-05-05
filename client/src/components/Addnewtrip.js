@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilRefresher_UNSTABLE, useRecoilState } from 'recoil';
 import axios from 'axios';
 import { tripsAtom } from './atoms';
 
@@ -15,7 +15,7 @@ function Addnewtrip({ user }) {
 
   const [trips, setTrips] = useRecoilState(tripsAtom);
 
-
+  const refresh = useRecoilRefresher_UNSTABLE(trips);
 
 
 
@@ -40,7 +40,8 @@ function Addnewtrip({ user }) {
   axios.post('/trips', newTrip)
   .then(response => {
     console.log(response.data);
-    setTrips([...trips, response.data]); // Update the local state with the new trip
+    setTrips([...trips, response.data]);
+    
   })
   .catch(error => {
     console.log(error);

@@ -17,7 +17,7 @@ function Homepage({user}) {
   //   setUserTrips({userTrips:trips.filter(trip => trip.user_id === user.id)});
   //   console.log(userTrips)
   // },[])
-
+console.log(trips);
   const userTrips = trips.filter(trip => trip.user_id === user.id);
 
   return (

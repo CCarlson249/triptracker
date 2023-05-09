@@ -133,8 +133,10 @@ def create_trip():
     db.session.add(trip)
     db.session.commit()
 
-
-    return jsonify({'message': 'Trip created successfully'}), 201  
+    # Return the created Trip object as JSON in the response
+    trip_dict = trip.__dict__
+    trip_dict.pop('_sa_instance_state', None)
+    return jsonify(trip_dict), 201  
 
 
 
@@ -189,14 +191,27 @@ def get_event(event_id):
     else:
         return jsonify({'message': 'Event not found'}), 404
 
-# POST request to create a new event
 @app.route('/events', methods=['POST'])
 def create_event():
     data = request.get_json()
-    event = Event(**data)
+    event_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+    event_time = datetime.strptime(data['time'], '%H:%M').time()
+    event = Event(
+        name=data['name'],
+        address=data['address'],
+        date=event_date,
+        time=event_time,
+        description=data['description'],
+        trip_id=data['trip_id'],
+        user_id=data['user_id']
+    )
     db.session.add(event)
     db.session.commit()
-    return jsonify(event.to_dict()), 201
+
+    # Return the created Event object as JSON in the response
+    event_dict = event.__dict__
+    event_dict.pop('_sa_instance_state', None)
+    return jsonify(event_dict), 201
 
 # PATCH request to update an existing event by ID
 @app.route('/events/<int:event_id>', methods=['PATCH'])

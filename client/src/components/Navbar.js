@@ -12,6 +12,9 @@ function Navbar({handleLogout}) {
                     <li className="nav-item"> 
                         <NavLink to='/Addnewtrip' className="nav-link">New Trip</NavLink>
                     </li>
+                    <li className='nav-item'>
+                        <NavLink to ='/AddActivity' className='nav-link'>Add Activity</NavLink>
+                    </li>
                     <li className="nav-item">
                         <NavLink to='/Calendar' className="nav-link">Calendar view</NavLink>
                     </li>

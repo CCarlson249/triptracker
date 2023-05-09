@@ -11,6 +11,7 @@ import EditProfile from "./EditProfile";
 import TripPage from "./TripPage";
 import { tripsAtom } from "./atoms";
 import {useRecoilState} from 'recoil';
+import AddActivity from "./AddActivity";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -68,6 +69,11 @@ function App() {
             <Route path= '/Addnewtrip'>
               <div>
                 <Addnewtrip  user={user}/>
+              </div>
+            </Route>
+            <Route path='/AddActivity'>
+              <div>
+              <AddActivity user={user}/>
               </div>
             </Route>
             <Route path='/Calendar'>

@@ -17,7 +17,7 @@ function Addnewtrip({ user }) {
 
   const refresh = useRecoilRefresher_UNSTABLE(trips);
 
-
+console.log(trips);
 
   // Handle form submission
   const handleSubmit = (event) => {
@@ -39,7 +39,8 @@ function Addnewtrip({ user }) {
     // Patch the new trip object to the backend
   axios.post('/trips', newTrip)
   .then(response => {
-    console.log([...trips, response.data]);
+    console.log(response.data);
+    
     setTrips([...trips, response.data]);
     
     

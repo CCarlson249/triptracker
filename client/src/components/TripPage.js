@@ -27,6 +27,26 @@ function TripPage(){
         })
     }, [trips.id])
 
+    const removeActivity = (activityId) => {
+        // Make a DELETE request to remove the activity from the backend
+        fetch(`/events/${activityId}`, {
+          method: 'DELETE',
+        })
+          .then((res) => {
+            if (res.ok) {
+              // Remove the activity from the tripEvents state
+              setTripEvents((prevTripEvents) => prevTripEvents.filter((event) => event.id !== activityId));
+            } else {
+              throw new Error('Failed to delete activity');
+            }
+          })
+          .catch((error) => {
+            console.error('Error deleting activity:', error);
+            // Handle error if necessary
+          });
+      };
+
+
     return (
         <div>
             <div>
@@ -37,7 +57,7 @@ function TripPage(){
                 <h4>Arriving on {trips.arrive_day} at {trips.arrive_time}</h4>
             </div>
             <div>
-                {tripEvents.map(tripEvent => <ActivityCard tripEvent={tripEvent}/>)}
+                {tripEvents.map(tripEvent => <ActivityCard removeActivity={removeActivity} tripEvent={tripEvent}/>)}
             </div>
         </div>
     )

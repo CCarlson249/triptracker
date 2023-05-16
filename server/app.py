@@ -173,6 +173,8 @@ def update_trip(id):
 @app.route('/trips/<int:id>', methods=['DELETE'])
 def delete_trip(id):
     trip = Trip.query.get_or_404(id)
+    Event.query.filter_by(trip_id=trip.id).delete()
+
     db.session.delete(trip)
     db.session.commit()
     return '', 204
@@ -246,6 +248,8 @@ def user_delete(id):
     if request.method == 'DELETE':
         user_to_delete_id = session['user_id']
         user = User.query.filter_by(id=id).first()
+        Trip.query.filter_by(user_id=user.id).delete()
+        Event.query.filter_by(user_id=user.id).delete()
         db.session.delete(user)
         db.session.commit()
         return make_response({"Message": "Yeet!"},200)

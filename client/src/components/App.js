@@ -6,12 +6,13 @@ import Navbar from "./Navbar";
 import Profile from "./Profile";
 import Homepage from "./Homepage";
 import Addnewtrip from './Addnewtrip';
-import Calendar from './Calendar';
+import CalendarView from './CalendarView';
 import EditProfile from "./EditProfile";
 import TripPage from "./TripPage";
 import { tripsAtom } from "./atoms";
 import {useRecoilState} from 'recoil';
 import AddActivity from "./AddActivity";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -78,7 +79,7 @@ function App() {
             </Route>
             <Route path='/Calendar'>
               <div>
-                <Calendar />
+                <CalendarView user={user} />
               </div>
             </Route>
             <Route path='/profile'>

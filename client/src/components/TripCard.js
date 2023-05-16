@@ -29,9 +29,10 @@ function TripCard({ trip, user }) {
       <h4>{trip.end}</h4>
 
       <Link to={`/trip/${trip.id}`}>
-        <button>Activity Page</button>
+        <button type='button' class='btn btn-info'>Activity Page</button>
       </Link>
-      <button onClick={deleteTrip}>Remove Trip</button>
+    
+      <button type='button' class='btn btn-warning'  onClick={deleteTrip}>Remove Trip</button>
     </div>
   );
 }

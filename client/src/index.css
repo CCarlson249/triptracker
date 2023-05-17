@@ -14,3 +14,21 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
+
+
+.tripcard {
+    
+    border-radius: 10px;
+    border: black solid 1px;
+    padding: 1 rem;
+    box-shadow: 3px 4px gray;
+    width: 20rem;
+    flex: 1 0 21%;  /* Adjust this value to change how many cards per row */
+    margin: 1%; 
+  }
+
+  .trip-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }

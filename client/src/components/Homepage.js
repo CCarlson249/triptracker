@@ -28,9 +28,11 @@ function Homepage({ user }) {
       <br></br>
       <h2>Your Trips</h2>
       <br></br>
+      <div className='tripdisplay'>
       {userTrips.map(trip => (
         <TripCard key={trip.id} trip={trip} />
       ))}
+      </div>
     </div>
   );
 }

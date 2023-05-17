@@ -62,31 +62,31 @@ function AddActivity({ user }) {
       <div>
       <label>
         Name:
-        <input placeholder='name'type='text' value={name} onChange={event => setName(event.target.value)} />
+        <input class="form-control" placeholder='name'type='text' value={name} onChange={event => setName(event.target.value)} />
       </label>
       </div>
       <div>
       <label>
         Address:
-        <input placeholder='address'type='text' value={address} onChange={event => setAddress(event.target.value)} />
+        <input class="form-control" placeholder='address'type='text' value={address} onChange={event => setAddress(event.target.value)} />
       </label>
       </div>
       <div>
       <label>
         Date:
-        <input type='date' value={date} onChange={event => setDate(event.target.value)} />
+        <input type='date' class="form-control" value={date} onChange={event => setDate(event.target.value)} />
       </label>
       </div>
       <div>
       <label>
         Time:
-        <input type='time' value={time} onChange={event => setTime(event.target.value)} />
+        <input type='time' class="form-control" value={time} onChange={event => setTime(event.target.value)} />
       </label>
       </div>
       <div>
       <label>
         Description:
-        <input placeholder='description'type='text' value={description} onChange={event => setDescription(event.target.value)} />
+        <input class="form-control" placeholder='description'type='text' value={description} onChange={event => setDescription(event.target.value)} />
       </label>
       <div>
       <button type="submit" class="btn btn-primary">Submit new Activity</button>

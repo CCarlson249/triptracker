@@ -32,3 +32,25 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
   }
+
+
+  .tripcontainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .tripinfo {
+    flex: 1;
+    margin-right: 2rem; /* adjust as needed for spacing */
+  }
+  
+  .ActivityDisplay {
+    flex: 1;
+  }
+
+  .ActivityCard {
+    border-radius: 10px;
+    border: black solid 1px;
+    padding: 1 rem;
+    box-shadow: 3px 4px gray;
+  }

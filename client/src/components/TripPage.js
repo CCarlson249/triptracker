@@ -48,15 +48,15 @@ function TripPage(){
 
 
     return (
-        <div>
-            <div>
+        <div className='tripcontainer'>
+            <div className='tripinfo'>
                 <h1>{trips.name}</h1>
                 <h3>Traveling from {trips.start} to {trips.end}</h3>
                 <h4>Flight Number: {trips.flight_number}</h4>
                 <h4>Departing on {trips.depart_day} at {trips.depart_time}</h4>
                 <h4>Arriving on {trips.arrive_day} at {trips.arrive_time}</h4>
             </div>
-            <div>
+            <div className='ActivityDisplay'>
                 {tripEvents.map(tripEvent => <ActivityCard removeActivity={removeActivity} tripEvent={tripEvent}/>)}
             </div>
         </div>

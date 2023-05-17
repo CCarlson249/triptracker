@@ -23,7 +23,7 @@ function Navbar({handleLogout}) {
                     </li>
                 </ul>
                 <div>
-                <button type= 'button' className="btn-btn-light" onClick={handleLogout}>Logout</button>
+                <button type= 'button' className="btn btn-light" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
         </div>

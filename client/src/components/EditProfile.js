@@ -61,12 +61,12 @@ function EditProfile({ user, handleLogout }) {
                       onChange={handleChangePassword} />
               </div>
               <div>
-                  <button type="submit">Save Password</button>
+                  <button type="submit" className='btn btn-primary'>Save Password</button>
               </div>
           </form>
       </div>
         <div>
-        <button onClick={handleDelete} >Delete Profile</button>
+        <button  type='button' className='btn btn-warning'onClick={handleDelete} >Delete Profile</button>
     </div></>
   );
 }

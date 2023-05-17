@@ -6,7 +6,7 @@ function Profile({user}) {
         <div>
       <h1>Welcome to your profile, {user.username}!</h1>
       <Link to="/edit_profile">
-        <button>Edit Profile</button>
+        <button type='button' className='btn btn-light'>Edit Profile</button>
       </Link>
     </div>
         

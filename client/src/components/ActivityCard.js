@@ -13,7 +13,7 @@ function ActivityCard({tripEvent, removeActivity}){
             <h3>{tripEvent.date}</h3>
             <h3>{tripEvent.time}</h3>
             <h3>{tripEvent.description}</h3>
-            <button onClick={handleRemoveActivity}>Remove Activity</button>
+            <button class='btn btn-warning' onClick={handleRemoveActivity}>Remove Activity</button>
         </div>
     )
 }

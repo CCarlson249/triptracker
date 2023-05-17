@@ -52,42 +52,60 @@ console.log(trips);
 
   return (
     <form onSubmit={handleSubmit}>
+      <div class='form row'>
+        <div class='"form-group col-md-6"'>
       <label>
         Start Airport:
-        <input type='test' value={startAirport} onChange={event => setStartAirport(event.target.value)} />
+        <input placeholder='departing ariport' type='test'  class="form-control" value={startAirport} onChange={event => setStartAirport(event.target.value)} />
       </label>
-      
-        
+      </div>
+        <div class="form-group col-md-6">
         <label>
         End Airport:
-        <input type="text" value={endAirport} onChange={event => setEndAirport(event.target.value)} />
+        <input placeholder='arriving airport'type="text" class="form-control" value={endAirport} onChange={event => setEndAirport(event.target.value)} />
       </label>
-      
+      </div>
+      </div>
+      <div class='form-group'>
       <label>
         Trip Name:
-        <input type="text" value={tripName} onChange={event => setTripName(event.target.value)} />
+        <input placeholder='Name'type="text"class="form-control" value={tripName} onChange={event => setTripName(event.target.value)} />
       </label>
+      </div>
+      <div>
       <label>
         Departure Date:
-        <input type="date" value={departDate} onChange={event => setDepartDate(event.target.value)} />
+        <input type="date" class="form-control" value={departDate} onChange={event => setDepartDate(event.target.value)} />
       </label>
+      </div>
+      <div>
       <label>
         Departure Time:
-        <input type="time" value={departTime} onChange={event => setDepartTime(event.target.value)} />
+        <input type="time" class="form-control" value={departTime} onChange={event => setDepartTime(event.target.value)} />
             </label>
+            </div>
+            <div>
             <label>
         Arrival Date:
-        <input type="date" value={arriveDate} onChange={event => setArriveDate(event.target.value)} />
+        <input type="date" class="form-control" value={arriveDate} onChange={event => setArriveDate(event.target.value)} />
       </label>
+      </div>
+      <div>
       <label>
         Arrival Time:
-        <input type="time" value={arriveTime} onChange={event => setArriveTime(event.target.value)} />
+        <input type="time" class="form-control" value={arriveTime} onChange={event => setArriveTime(event.target.value)} />
             </label>
+            </div>
+            <div>
         <label>
             Flight Number:
-            <input type='text' value={flightNumber} onChange={event => setFlightNumber(event.target.value)} />
+            <input placeholder='flight number here' type='text' class="form-control" value={flightNumber} onChange={event => setFlightNumber(event.target.value)} />
         </label>
-        <button onClick={handleSubmit}>Submit new trip</button>
+        </div>
+        <div>
+        <button type='submit' class='btn btn-primary' onClick={handleSubmit}>Submit new trip</button>
+        </div>
+        
             </form>
 )}
 export default Addnewtrip;

@@ -23,7 +23,11 @@ function Homepage({ user }) {
 
   return (
     <div>
-      <h1>Trips</h1>
+      <h1>Welcome {user.username}!</h1>
+      <br></br>
+      <br></br>
+      <h2>Your Trips</h2>
+      <br></br>
       {userTrips.map(trip => (
         <TripCard key={trip.id} trip={trip} />
       ))}
